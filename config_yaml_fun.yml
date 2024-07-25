@@ -1,0 +1,58 @@
+servers:
+  - id: alfa
+    port: 5555
+    url: localhost
+    rabbitmq:
+      connectionUrl: amqp://localhost
+  - id: beta
+    port: 4444
+    url: localhost
+    rabbitmq:
+      connectionUrl: amqp://localhost
+  - id: gama
+    port: 3333
+    url: localhost
+    rabbitmq:
+      connectionUrl: amqp://localhost
+
+functions:
+  - name: funcao1
+    server: alfa
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+    exchange: function_alfa_exchange
+    routing_key: function_funcao1
+  - name: funcao2
+    server: beta
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+    exchange: function_dois_exchange
+    routing_key: function.funcao2
+  - name: funcao3
+    server: gama
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+    queue: fila_3
+    callback_queue: function3_callback_queue
+  - name: funcao4
+    server: alfa
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+    exchange: function_quatro_exchange
+    routing_key: function.funcao4
+    callback_queue: function4_callback_queue
+  - name: funcao5
+    server: beta
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+    callback_queue: function5_callback_queue
