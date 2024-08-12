@@ -6,6 +6,58 @@ Este guia descreve como configurar o `js-distributor` para distribuir funções 
 
 Para configurar o RabbitMQ no `js-distributor`, você precisa definir os seguintes parâmetros:
 
+## Creating a .yaml configuration file
+
+```servers:
+  - id: alfa
+    port: 5555
+    url: localhost
+    rabbitmq:
+      connectionUrl: amqp://localhost
+  - id: beta
+    port: 4444
+    url: localhost
+    rabbitmq:
+      connectionUrl: amqp://localhost
+  - id: gama
+    port: 3333
+    url: localhost
+    rabbitmq:
+      connectionUrl: amqp://localhost
+
+functions:
+  - name: funcao1
+    server: alfa
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+  - name: funcao2
+    server: beta
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+  - name: funcao3
+    server: gama
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+  - name: funcao4
+    server: alfa
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+  - name: funcao5
+    server: beta
+    parameters:
+      - name: a
+        type: number
+    method: rabbit
+```
+
 ### Parâmetros de Configuração
 
 - `queue`: Nome da fila que será usada para receber mensagens.
